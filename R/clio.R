@@ -1,4 +1,4 @@
-hist <- readLines('/Users/kdarrell/Desktop/r/clio/exHist')
+hist <- readLines('exHist')
 
 a <- grep('<-', hist, value = T)
 
