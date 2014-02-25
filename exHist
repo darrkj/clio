@@ -1,0 +1,512 @@
+for (i in letters) {
+url <- paste(base, i, sep = '')
+# There is only one piece of info here in the second element.
+players[[i]] <- readHTMLTable(url)$players
+# This is the percursoer to the link in the HTML
+pre <- paste('href="/players/', i, sep = '')
+tmp <- unlist(strsplit(as.character(GET(url)), split = "\ "))
+urlList[[i]] <- grep(pre, tmp, fixed = TRUE, value = TRUE)
+}
+players[1]
+urlList[1]
+lapply(players, length)
+lapply(players, nrow)
+unlist(lapply(players, nrow))
+unlist(lapply(urlList, length))
+players['a']
+players['a']
+urlList['a']
+cbind(urlList['1'], players['a'])
+cbind(urlList['1'], players['a'][[, 1]])
+cbind(urlList['1'], players[['a']][, 1])
+cbind(urlList['a'], players[['a']][, 1])
+cbind(urlList[['a']], players[['a']][, 1])
+players[['a']][-143, ]) <- NULL
+players[['a']][-143, ] <- NULL
+players[['a']][143, ]
+players[['a']] <- players[['a']][c(1:142, 144), ]
+cbind(urlList[['a']], players[['a']][, 1])
+unlist(lapply(players, nrow))
+unlist(lapply(urlList, length))
+cbind(urlList[['i']], players[['i']][, 1])
+urlList[['i']]
+players[['i']][, 1]
+cbind(urlList[['i']], players[['i']][, 1])
+players[['i']] <- players[['i']][c(1:5, 7:20), ]
+unlist(lapply(players, nrow))
+unlist(lapply(urlList, length))
+cbind(urlList[['w']], players[['w']][, 1])
+players[['w']] <- players[['w']][c(1:296, 298:320), ]
+cbind(urlList[['w']], players[['w']][, 1])
+unlist(lapply(players, nrow))
+unlist(lapply(urlList, length))
+sum(unlist(lapply(urlList, length)))
+sum(unlist(lapply(urlList, length)))
+pl_detail[[1]]
+pl_detail[[50]]
+totals <- lapply(pl_detail, `[[`, 'totals')
+advanced <- lapply(pl_detail, `[[`, 'advanced')
+rm(pl_details)
+players <- recurBind(players)[[1]]
+urlList <- unlist(urlList)
+names(urlList) <- NULL
+# Remove the garbage text at the begining.
+urlList <- gsub('href=\"/players/', '', urlList)
+urlList <- substr(urlList, 1, regexpr('.html', urlList) + 4)
+urlList <- paste(base, urlList, sep = '')
+rm(pre, i, tmp, base)
+names(advanced[[1]])
+names(totals[[1]])
+players[1]
+players[1, ]
+urlList[1]
+delta <- setdiff(names(advanced[[1]]), names(totals[[1]]))
+delta
+names(totals[[1]])
+advanced[[1]][, delta]
+rm(url)
+delta <- setdiff(names(advanced[[1]]), names(totals[[1]]))
+detail <- list()
+for (i in 1:length(players)) {
+detail[[i]] <- cbind(players[i, ], totals[[i]],
+advanced[[i]][, delta], urlList[i])
+}
+detail <- list()
+for (i in 1:length(players)) {
+detail[[i]] <- cbind(players[i, ], totals[[i]],
+advanced[[i]][, delta], urlList[i])
+print(i)
+}
+i
+players[i, ]
+totals[[i]]
+advanced[[i]][, delta]
+advanced[[i]]
+totals[[i]]
+totals[[i]]
+advanced[[i]]
+urlList[i]
+totals[[5]] <- totals[[5]][c(1:8, 11), ]
+cbind(players[i, ], totals[[i]],
+advanced[[i]][, delta], urlList[i])
+detail <- list()
+for (i in 1:length(players)) {
+detail[[i]] <- cbind(players[i, ], totals[[i]],
+advanced[[i]][, delta], urlList[i])
+print(i)
+}
+urlList[i]
+players[i, ]
+totals[[i]]
+advanced[[i]]
+delta <- setdiff(names(advanced[[1]]), names(totals[[1]]))
+detail <- list()
+for (i in 1:nrow(players)) {
+detail[[i]] <- cbind(players[i, ], totals[[i]],
+advanced[[i]][, delta], urlList[i])
+print(i)
+}
+players[i, ]
+totals[[i]]
+advanced[[i]]
+advanced[[i]]$Tm
+totals[[i]]$Tm
+grep('Did Not Play', totals[[i]]$Tm)
+totals[[i]][-grep('Did Not Play', totals[[i]]$Tm), ]
+detail <- list()
+for (i in 1:nrow(players)) {
+detail[[i]] <- cbind(players[i, ], totals[[i]][-grep('Did Not Play', totals[[i]]$Tm), ],
+advanced[[i]][, delta], urlList[i])
+print(i)
+}
+players[i, ],
+players[i, ]
+players[i, ]
+totals[[i]][-grep('Did Not Play', totals[[i]]$Tm), ]
+advanced[[i]][, delta]
+totals[[i]]
+grep('Did Not Play', totals[[i]]$Tm)
+totals[[i]][-grep('Did Not Play', totals[[i]]$Tm), ]
+rmv <- grep('Did Not Play', totals[[i]]$Tm)
+rmv
+length(rmv)
+-c(1, 2)
+delta <- setdiff(names(advanced[[1]]), names(totals[[1]]))
+detail <- list()
+for (i in 1:nrow(players)) {
+rmv <- grep('Did Not Play', totals[[i]]$Tm)
+tmp <- if(length(rmv) == 0) 1:nrow(totals[[i]]) else -rmv
+detail[[i]] <- cbind(
+players[i, ]
+,
+totals[[i]][rmv, ]
+,
+advanced[[i]][, delta]
+,
+urlList[i]
+)
+print(i)
+}
+rmv
+tmp
+players[i, ]
+totals[[i]][rmv, ]
+delta <- setdiff(names(advanced[[1]]), names(totals[[1]]))
+detail <- list()
+for (i in 1:nrow(players)) {
+rmv <- grep('Did Not Play', totals[[i]]$Tm)
+tmp <- if(length(rmv) == 0) 1:nrow(totals[[i]]) else -rmv
+detail[[i]] <- cbind(
+players[i, ]
+,
+totals[[i]][tmp, ]
+,
+advanced[[i]][, delta]
+,
+urlList[i]
+)
+print(i)
+}
+rm(i, rmv, tmp)
+rm(i, rmv, tmp, advanced. totals)
+rm(i, rmv, tmp, advanced, totals)
+rm(i, rmv, tmp, advanced, totals, delta)
+details <- recurBind(detail)[[1]]
+head(details)
+names(details)
+tail(names(details), 1)
+tail(names(details), 1) <- 'URL'
+names(details)[ncol(details)] <- 'URL'
+names(details)
+str(details)
+table(details$from)
+table(details$From)
+summary(details$From)
+details$From <- as.numeric(details$From)
+details$To <- as.numeric(details$To)
+table(details$Pos)
+str(details)
+table(details$Ht)
+details$Ht <- substr(details$Ht, 1, 1) * 12 + substr(details$Ht, 3, nchar(details$Ht))
+details$Ht <- as.numeric(substr(details$Ht, 1, 1)) * 12 +
+as.numeric(substr(details$Ht, 3, nchar(details$Ht)))
+table(details$Ht)
+details$Wt <- as.numeric(details$Wt)
+library(lubridate)
+details$BirthDate <- mdy(details$`Birth Date`)
+str(details)
+devtools::install_github("rmarkdown", "rstudio")
+load("~/Desktop/r/hoops/players.RData")
+load("~/Desktop/r/hoops/h.RData")
+load("~/Desktop/r/hoops/blog.RData")
+load("~/Desktop/r/hoops/.RData")
+str(details)
+details$guid <- 1:nrow(details)
+details$span <- details$To - details$From
+rm(urlList, detail, recurBind)
+info <- 'This data was captured on 2-15-2014 using the script plcluster2.R and it mostly relies on data from http://www.basketball-reference.com/players.'
+save(info, details, players, pl_detail, file = 'plcluster2.RData')
+library(plyr)
+library(survival)
+load("../plcluster2.RData")
+load("plcluster2.RData")
+details$Age <- as.numeric(details$Age)
+details$G <- as.numeric(details$G)
+details$Season <- as.numeric(substr(details$Season, 1, 4))
+span <- ddply(Season, .(Player), summarise, span = max(Age) - min(Age))
+span <- ddply(details, .(Player), summarise, span = max(Age) - min(Age))
+rm(span)
+str(details)
+table(details$Pos)
+sum(table(details$Pos))
+length(unique(details$Player))
+length(unique(details[, c('Player', 'To', 'From')]))
+nrow(unique(details[, c('Player', 'To', 'From')]))
+nrow(unique(details[, c('Player', 'To', 'From', 'Pos')]))
+games <- ddply(details, .(Player), summarise, Games = sum(G))
+games <- ddply(details, .(Player, To), summarise, Games = sum(G))
+games <- ddply(details, .(Player, To, From), summarise, Games = sum(G))
+games$pid <- 1:nrow(games)
+head(games)
+res <- details[, c('Player', 'span', 'Season', 'Pos', 'From', 'To')]
+nrow(unique(res))
+res <- res[res$Season == res$From, ]
+res <- details[, c('Player', 'span', 'Pos', 'From', 'To')]
+nrow(unique(res))
+res <- unique(details[, c('Player', 'span', 'Pos', 'From', 'To')])
+rm(pl_detail, players)
+res <- merge(res, games)
+head(res)
+rm(games)
+res$span <- res$span + 1
+res$avgGam <- res$Games / res$span
+res$gamBin <- ifelse(res$avgGam > 50, 'a', 'b')
+head(res)
+attach(res)
+time <- span
+res$event <- ifelse(res$retire < 2014, 1, 0)
+detach(res)
+res$event <- ifelse(res$retire < 2014, 1, 0)
+res$event <- ifelse(res$To < 2014, 1, 0)
+attach(res)
+time <- span
+event <- event
+kms <- survfit(Surv(time, event) ~ 1)
+summary(kms)
+plot(kms, xlab = 'Seasons', ylab = 'Survival Probability')
+kms <- survfit(Surv(time, event) ~ Pos + gamBin)
+summary(kms)
+plot(kms, xlab = 'Seasons', ylab = 'Survival Probability')
+detach(res)
+table(res$From)
+res2 <- res[res$From > 1969, ]
+attach(res2)
+time <- span
+event <- event
+kms <- survfit(Surv(time, event) ~ 1)
+summary(kms)
+plot(kms, xlab = 'Seasons', ylab = 'Survival Probability')
+load("plcluster2.RData")
+# These data sets are not needed for this analysis.
+rm(pl_detail, players)
+# Turn Age and G (Number of Games) into numeric varaibles.
+details$Age <- as.numeric(details$Age)
+details$G <- as.numeric(details$G)
+# Create Season variable from Year (1998-99)
+details$Season <- as.numeric(substr(details$Season, 1, 4))
+# Get totla number of games played by player
+games <- ddply(details, .(Player, To, From), summarise, Games = sum(G))
+# Create a player centric unique id since names are shared and guid is for all observations
+games$pid <- 1:nrow(games)
+# Fields that are useful for survial analysis
+res <- unique(details[, c('Player', 'span', 'Pos', 'From', 'To')])
+# Add games data to get totla games played and pid
+res <- merge(res, games)
+rm(games)
+# Adjust for the number of season played.
+res$span <- res$span + 1
+res$avgGam <- res$Games / res$span
+res$gamBin <- ifelse(res$avgGam > 50, 'a', 'b')
+res$games <- NULL
+res$Season <- NULL
+res$event <- ifelse(res$To < 2014, 1, 0)
+# Subset of more recent data.
+res2 <- res[res$From > 1969, ]
+attach(res2)
+time <- span
+event <- event
+kms <- survfit(Surv(time, event) ~ 1)
+summary(kms)
+plot(kms, xlab = 'Seasons', ylab = 'Survival Probability')
+kms <- survfit(Surv(time, event) ~ Pos + gamBin)
+summary(kms)
+plot(kms, xlab = 'Seasons', ylab = 'Survival Probability')
+table(res2$Pos)
+load("plcluster2.RData")
+# These data sets are not needed for this analysis.
+rm(pl_detail, players)
+# Turn Age and G (Number of Games) into numeric varaibles.
+details$Age <- as.numeric(details$Age)
+details$G <- as.numeric(details$G)
+# Create Season variable from Year (1998-99)
+details$Season <- as.numeric(substr(details$Season, 1, 4))
+# Get totla number of games played by player
+games <- ddply(details, .(Player, To, From), summarise, Games = sum(G))
+# Create a player centric unique id since names are shared and guid is for all observations
+games$pid <- 1:nrow(games)
+# Fields that are useful for survial analysis
+res <- unique(details[, c('Player', 'span', 'Pos', 'From', 'To')])
+# Add games data to get totla games played and pid
+res <- merge(res, games)
+rm(games)
+# Adjust for the number of season played.
+res$span <- res$span + 1
+res$avgGam <- res$Games / res$span
+res$gamBin <- ifelse(res$avgGam > 50, 'a', 'b')
+res$games <- NULL
+res$Season <- NULL
+res$event <- ifelse(res$To < 2014, 1, 0)
+# Subset of more recent data.
+res2 <- res[res$From > 1979, ]
+table(res2$Pos)
+res2[res2$Pos == 'C-F',]
+load("~/Desktop/r/hoops/players.RData")
+str(pl_detail)
+str(plys)
+load("~/Desktop/r/hoops/plcluster2.RData")
+details$Player2 <- gsub('*', '', details$Player)
+head(details$Player)
+head(details$Player2)
+unique(details[details$Pos == 'C-F',])
+unique(details[details$Pos == 'C-F', ]$Player)
+unique(details[details$Pos == 'C-F', ]$Player2)
+unique(details[details$Pos == 'C-F', ]$Player)
+details$Player2 <- gsub('*', '', details$Player, fixed = T)
+unique(details[details$Pos == 'C-F', ]$Player)
+unique(details[details$Pos == 'C-F', ]$Player2)
+details$Player2 <- NULL
+details$Player <- gsub('*', '', details$Player, fixed = TRUE)
+save(info, details, players, pl_detail, file = 'plcluster2.RData')
+oad("plcluster2.RData")
+# These data sets are not needed for this analysis.
+rm(pl_detail, players)
+# Turn Age and G (Number of Games) into numeric varaibles.
+details$Age <- as.numeric(details$Age)
+details$G <- as.numeric(details$G)
+# Create Season variable from Year (1998-99)
+details$Season <- as.numeric(substr(details$Season, 1, 4))
+# Get totla number of games played by player
+games <- ddply(details, .(Player, To, From), summarise, Games = sum(G))
+# Create a player centric unique id since names are shared and guid is for all observations
+games$pid <- 1:nrow(games)
+# Fields that are useful for survial analysis
+res <- unique(details[, c('Player', 'span', 'Pos', 'From', 'To')])
+# Add games data to get totla games played and pid
+res <- merge(res, games)
+rm(games)
+# Adjust for the number of season played.
+res$span <- res$span + 1
+res$avgGam <- res$Games / res$span
+res$gamBin <- ifelse(res$avgGam > 50, 'a', 'b')
+res$games <- NULL
+res$Season <- NULL
+res$event <- ifelse(res$To < 2014, 1, 0)
+# Load data
+load("plcluster2.RData")
+# These data sets are not needed for this analysis.
+rm(pl_detail, players)
+# Turn Age and G (Number of Games) into numeric varaibles.
+details$Age <- as.numeric(details$Age)
+details$G <- as.numeric(details$G)
+# Create Season variable from Year (1998-99)
+details$Season <- as.numeric(substr(details$Season, 1, 4))
+# Get totla number of games played by player
+games <- ddply(details, .(Player, To, From), summarise, Games = sum(G))
+# Create a player centric unique id since names are shared and guid is for all observations
+games$pid <- 1:nrow(games)
+# Fields that are useful for survial analysis
+res <- unique(details[, c('Player', 'span', 'Pos', 'From', 'To')])
+# Add games data to get totla games played and pid
+res <- merge(res, games)
+rm(games)
+# Adjust for the number of season played.
+res$span <- res$span + 1
+res$avgGam <- res$Games / res$span
+res$gamBin <- ifelse(res$avgGam > 50, 'a', 'b')
+res$games <- NULL
+res$Season <- NULL
+res$event <- ifelse(res$To < 2014, 1, 0)
+load("~/Desktop/r/hoops/players.RData")
+head(plys$name)
+head(plys$name) %in% head(details$Player)
+head(details$Player)
+head(plys$name) %in% head(res$Player)
+head(res$Player)
+sum(head(plys$name) %in% head(res$Player))
+sum(head(plys$name) %in% res$Player)
+sum(plys$name %in% res$Player)
+Sys.getenv("R_HISTSIZE")
+EnvVar('R_HISTSIZE')
+Sys.getenv("R_OME")
+Sys.getenv("R_HOME")
+Sys.getenv("R_HIST")
+Sys.getenv("R_HISTSIZE")
+scan('.Rhistory')
+scan(file = '.Rhistory')
+scan(file = '.Rhistory', 'character')
+xx <- scan(file = '.Rhistory', 'character')
+readLines('.Rhistory')
+xx <- readLines('.Rhistory')
+xx
+grep('<-', xx)
+grep('<-', xx, value = T)
+grep('res', xx, value = T)
+a <- grep('<-', xx, value = T)
+b <- grep('res', xx, value = T)
+intersect(a, b)
+library(plyr)
+library(survival)
+# Load data
+load("plcluster2.RData")
+# These data sets are not needed for this analysis.
+rm(pl_detail, players)
+# Turn Age and G (Number of Games) into numeric varaibles.
+details$Age <- as.numeric(details$Age)
+details$G <- as.numeric(details$G)
+# Create Season variable from Year (1998-99)
+# Get totla number of games played by player
+details$Season <- as.numeric(substr(details$Season, 1, 4))
+# Create a player centric unique id since names are shared and guid is for all observations
+games <- ddply(details, .(Player, To, From), summarise, Games = sum(G))
+rm(xx, a, b)
+games$pid <- 1:nrow(games)
+# Fields that are useful for survial analysis
+res <- unique(details[, c('Player', 'span', 'Pos', 'From', 'To')])
+# Add games data to get totla games played and pid
+res <- merge(res, games)
+rm(games)
+# Adjust for the number of season played.
+res$span <- res$span + 1
+res$avgGam <- res$Games / res$span
+res$gamBin <- ifelse(res$avgGam > 50, 'a', 'b')
+res$games <- NULL
+res$Season <- NULL
+res$event <- ifelse(res$To < 2014, 1, 0)
+load("~/Desktop/r/hoops/players.RData")
+str(pl_detail)
+str(plys)
+rm(pl_detail)
+rm(urlList)
+names(plys)
+length(plys$names %in% details$Player)
+length(plys$name %in% details$Player)
+table(details$Pos)
+length(details[details$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F')])
+length(details[details$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ])
+details[details$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]
+length(details[details$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$name)
+length(details[details$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$Player)
+nrow(details[details$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$Player)
+nrow(details[details$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ])
+nrow(unique(details[details$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]))
+nrow(res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ])
+table(details$Pos)
+table(res$Pos)
+table(res$Pos)[2]
+table(res$Pos)[2, 4, 5, 7]
+table(res$Pos)[c(2, 4, 5, 7)]
+sum(table(res$Pos)[c(2, 4, 5, 7)])
+nrow(res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ])
+sum(table(res$Pos)[c(2, 4, 5, 7)])
+nrow(res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ])
+length(plys$names %in% details$Player)
+length(plys$names %in% res$Player)
+length(plys$name %in% res$Player)
+length(plys$name %in% res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$Players)
+length(res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$Players)
+res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$Players
+res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]
+names(res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ])
+res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$Player
+length(res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$Player)
+length(res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$Player %in% plys$name)
+res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$Player %in% plys$name
+plys[res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$Player %in% plys$name, ] -> cc
+plys[plys$name %in% res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$Player , ] -> cc
+plys[res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$Player %in% plys$name, ] -> dd
+plys[plys$name %in% res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$Player , ] -> cc
+str(dd)
+plys[res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$Player %in% plys$name, c('Position', 'name')] -> dd
+plys[plys$name %in% res[res$Pos %in% c('C-F', 'F-C', 'F-G', 'G-F'), ]$Player , c('Position', 'name')] -> cc
+head(dd)
+head(cc)
+names(res)
+names(cc)[2] <- 'Player'
+names(dd)[2] <- 'Player'
+ccc <- merge(cc, res)
+ddd <- merge(dd, res)
+head(ccc)
+head(ddd)
+rm(pl_detail, players)
+load("plcluster2.RData")
+head(players)
