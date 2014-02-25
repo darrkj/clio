@@ -1,0 +1,11 @@
+clio/kleio/istor/mnemosyme
+
+R Data History Tool
+
+Should start keeping history from when an analysis project is started.
+
+Would be most simple to have for a single script.
+
+When project starts nothing exists. There is state though, options and session.info
+
+SHould be able to generate a script to recreate and object in the workspace.
