@@ -1,4 +1,8 @@
 clio/kleio/istor/mnemosyme
+https://www.memphis.edu/history/clio.htm
+genealogy, lineage
+Genealogy (genea, "generation"; logos, "knowledge")
+information genealogy
 
 R Data History Tool
 
@@ -9,3 +13,5 @@ Would be most simple to have for a single script.
 When project starts nothing exists. There is state though, options and session.info
 
 SHould be able to generate a script to recreate and object in the workspace.
+
+Is there an R lint tool that would enforce code to look clean(ish)
