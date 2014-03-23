@@ -1,30 +1,42 @@
 
 # Read in the history file from some of the hoops analysis.
 #hist <- readLines('R/exHist')
-hist <- readLines('.Rhistory')
 
 
+read.hist <- function() {
+  hist <- readLines('.Rhistory')
 
-# Comments id
-comments_index <- gregexpr('^#', hist, perl = T) == 1
-comments <- hist[comments_index]
-hist <- hist[!comments_index]
+  # Comments id
+  comments_index <- gregexpr('^#', hist, perl = T) == 1
+  comments <- hist[comments_index]
+  hist <- hist[!comments_index]
 
-# Does not account for for loops
+  # Does not account for for loops
 
-# Break the code up into assignments
-assignments <- grep('<-', hist, value = TRUE)
-assignments <- grep("'<-'", assignments, value = TRUE, invert = TRUE)
-assignments <- grep('"<-"', assignments, value = TRUE, invert = TRUE)
-assignments <- strsplit(assignments, '<-')
+  # Break the code up into assignments
+  assignments <- grep('<-', hist, value = TRUE)
+  assignments <- grep("'<-'", assignments, value = TRUE, invert = TRUE)
+  assignments <- grep('"<-"', assignments, value = TRUE, invert = TRUE)
+  assignments <- strsplit(assignments, '<-')
 
+  history <- list(code = hist, comments = comments, 
+                  name = lapply(assignments, `[`, 1),
+                  value = lapply(assignments, `[`, 2))
+  
+  # Need better cleaning of leading and trailing spaces
+  last <- function(str) substr(str, nchar(str), nchar(str))
+  first <- function(str) substr(str, 1, 1)
+  
+  history$name <- ifelse(last(history$name) == ' ', 
+                         substr(history$name, 1, nchar(history$name) - 1), 
+                         history$name)
+  history$value <- ifelse(first(history$value) == ' ', 
+                          substr(history$value, 2, nchar(history$value)), 
+                          history$value)
+  history
+}
 
-
-history <- list(code = hist, comments = comments, 
-                name = lapply(assignments, `[`, 1),
-                value = lapply(assignments, `[`, 2))
-
-rm(assignments, comments, comments_index, hist)
+history <- read.hist()
 
 
 special <- c('for', 'while', 'if', 'else if', 'else')
@@ -62,15 +74,6 @@ gap_filler <- function(s, e) {
 }
 
 
-# Need better cleaning of leading and trailing spaces
-last <- function(str) substr(str, nchar(str), nchar(str))
-first <- function(str) substr(str, 1, 1)
-
-history$name <- ifelse(last(history$name) == ' ', 
-                       substr(history$name, 1, nchar(history$name)-1), history$name)
-history$value <- ifelse(first(history$value) == ' ', 
-                        substr(history$value, 2, nchar(history$value)), history$value)
-
 
 
 idx <- grep('data2', history$name)
@@ -86,28 +89,57 @@ peel <- function(exp) {
   }
 }
 
-
-origin <- function(var, all = F) {
-  name <- lapply(strsplit(history$name, split = '$', fixed = T), `[`, 1)
-  x <- which(var == name)
 #   y <- grep(var, history$value, invert = T)
 #   if (all) {
 #     history$value[intersect(x, y)] 
 #   } else { 
 #     tail(history$value[intersect(x, y)], 1)
 #   }
+
+
+origin <- function(var, all = F) {
+  name <- lapply(strsplit(history$name, split = '$', fixed = T), `[`, 1)
+  x <- which(var == name)
   if (all) {
-    paste(history$name[x], '<-', history$value[x])
+    unique(paste(history$name[x], '<-', history$value[x]))
   } else { 
-    tail(paste(history$name[x], '<-', history$value[x]), 1)
+    head(paste(history$name[x], '<-', history$value[x]), 1)
   }
 }
 
 
+origin('data2')
+origin('data2', T)
+origin('data')
+origin('data', T)
+
+all.names(parse(text = origin('data2')))
+all.vars(parse(text = origin('data2')))
 
 
-aa <- origin('data2')
-bb <- origin('data')
+condense <- function(str) {
+  xx <- origin(str)
+  x <- gregexpr('$', xx, fixed = T)
+  if (length(xx) > 0) {
+    d <- strsplit(xx, NULL)[[1]]
+    y <- d %in% letters | d %in% toupper(letters) | d %in% as.character(0:9)
+    y <- y | z
+    # The plus one is to offset the dollar sign
+    y[1:as.integer(x)] <- T
+    dd <- paste(d[c(1:(as.integer(x)-1), min(which(!y)):nchar(xx))], collapse = '')
+    
+    v <- all.names(parse(text = dd))
+  }
+  syms <- c('<-', '>', '<', '-', '+', '/', '*', '[', '[[', str)
+  setdiff(v, syms)
+}
+
+xx <- condense('data2')
+
+
+syms <- c('<-', '>', '<', '-', '+', '/', '*', '[', '[[')
+
+
 origin('details')
 origin('detail')
 
