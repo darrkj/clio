@@ -34,10 +34,12 @@ moves <- c('u', 'd', 'l', 'r')
 
 # Is the given move valid
 valid_move <- function(b, dir) {
-  if (dir == 'd') any(apply(sign(b), 2, diff) == -1)
-  else if (dir == 'u') any(apply(sign(b), 2, diff) == 1) 
-  else if (dir == 'l') any(apply(sign(b), 1, diff) == 1)
-  else any(apply(sign(b), 1, diff) == -1)
+  #if (dir == 'd') any(apply(sign(b), 2, diff) == -1)
+  if (dir == 'd') any(diff(sign(b)) == -1)
+  #else if (dir == 'u') any(apply(sign(b), 2, diff) == 1) 
+  else if (dir == 'u') any(diff(sign(b)) == 1) 
+  else if (dir == 'l') any(diff(sign(t(b))) == 1)
+  else any(diff(sign(t(b))) == -1)
 }
 
 
