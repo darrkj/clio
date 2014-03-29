@@ -66,9 +66,7 @@ not_game_over <- function(b) {
 }
 
 
-# Give extra zeros to make length 4.
-shift_left <- function(v) c(rep(0, 4 - length(v)), v)
-shift_right <- function(v) c(v, rep(0, 4 - length(v)))
+
 
 rotate <- function(x) t(apply(x, 2, rev))
 
@@ -84,6 +82,8 @@ ind <- function(x) {
   } else x
 }
 
+ind <- cmpfun(ind)
+
 
 ind2 <- function(x) {
   if (x[1] == x[2] & x[3] == x[4] & x[1] != 0 & x[3] != 0) {
@@ -96,6 +96,15 @@ ind2 <- function(x) {
     c(x[1], x[2], 0, 2*x[4])
   } else x
 }
+
+ind2 <- cmpfun(ind2)
+
+
+
+# Give extra zeros to make length 4.
+shift_left <- function(v) c(rep(0, 4 - length(v)), v)
+shift_right <- function(v) c(v, rep(0, 4 - length(v)))
+
 
 # pad(b[, 1][b[, 1] != 0]
 move <- function(b, dir) {
@@ -163,9 +172,10 @@ library(profr)
 
 Rprof("2048.out")
 x <- c()
-for (i in seq(100)) {
+t <- c()
+for (i in seq(150)) {
   print(i)
-  x <- c(x, auto_play(gen_board()))
+  t <- c(t, system.time(x <- c(x, auto_play(gen_board())))[3])
 }
 Rprof(NULL)
 summaryRprof('2048.out')
