@@ -100,18 +100,18 @@ ind2 <- function(x) {
 ind2 <- cmpfun(ind2)
 
 
-
 # Give extra zeros to make length 4.
-shift_left <- function(v) c(rep(0, 4 - length(v)), v)
-shift_right <- function(v) c(v, rep(0, 4 - length(v)))
+down <- function(v) c(rep(0, 4 - sum(sign(v))), v[v != 0])
+
+up <- function(v) c(v[v != 0], rep(0, 4 - sum(sign(v))))
 
 
 # pad(b[, 1][b[, 1] != 0]
 move <- function(b, dir) {
-  if(dir == 'd') apply(b, 2, function(x) shift_left(x[x != 0]))
-  else if (dir == 'u') apply(b, 2, function(x) shift_right(x[x != 0]))
-  else if (dir == 'r') rotate(apply(b, 1, function(x) rev(shift_left(x[x != 0]))))
-  else t(apply(b, 1, function(x) shift_right(x[x != 0])))
+  if(dir == 'd') apply(b, 2, down)
+  else if (dir == 'u') apply(b, 2, up)
+  else if (dir == 'l') t(apply(b, 1, up))
+  else t(apply(b, 1, down))
 }
 
 
