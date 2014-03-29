@@ -2,11 +2,8 @@
 
 gen_board <- function() {
   start <- rep(0, 16)
-
   inits <- sample(1:16, 2)
-
   start[inits] <- 2
-
   matrix(start, 4, 4)
 }
 
@@ -58,10 +55,14 @@ condense <- function(b, dir) {
   else any(apply(b, 1, two_in_order))
 }
 
-# If there are no valid moves it is game over.
-game_over <- function(b) {
-  !any(valid_move(b, 'u'), valid_move(b, 'd'), 
-      valid_move(b, 'l'), valid_move(b, 'r'))
+
+
+# If there are valid moves it is not game over.
+not_game_over <- function(b) {
+  valid_move(b, 'u') || valid_move(b, 'd') || 
+    valid_move(b, 'l') || valid_move(b, 'r') ||
+    condense(b, 'u') || condense(b, 'd') || 
+    condense(b, 'l') || condense(b, 'r')
 }
 
 
@@ -123,7 +124,7 @@ agg <- function(b, dir) {
 
 play <- function(b) {
   print_board(b)
-  while(!game_over(b)) {
+  while(not_game_over(b)) {
     n <- scan(nmax = 1, quiet = T, what = character())
     b <- agg(b, n)
     print_board(b)
@@ -136,7 +137,7 @@ play <- function(b) {
 
 auto_play <- function(b) {
   #print_board(b)
-  while(!game_over(b)) {
+  while(not_game_over(b)) {
     n <- sample(c('l', 'r', 'u', 'd'), 1)
     b <- agg(b, n)
    # print_board(b)
