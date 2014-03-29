@@ -1,11 +1,15 @@
 
-start <- rep(0, 16)
 
-inits <- sample(1:16, 2)
+gen_board <- function() {
+  start <- rep(0, 16)
 
-start[inits] <- 2
+  inits <- sample(1:16, 2)
 
-board <- matrix(start, 4, 4)
+  start[inits] <- 2
+
+  matrix(start, 4, 4)
+}
+
 
 rows <- function(fun) apply(b, 1, fun)
 cols <- function(fun) apply(b, 2, fun)
@@ -30,11 +34,12 @@ moves <- c('u', 'd', 'l', 'r')
 
 # Is the given move valid
 valid_move <- function(b, dir) {
-  dir == 'd' & any(apply(sign(b), 2, diff) == -1) |
-    dir == 'u' & any(apply(sign(b), 2, diff) == 1) |   
-    dir == 'l' & any(apply(sign(b), 1, diff) == 1) |
-    dir == 'r' & any(apply(sign(b), 1, diff) == -1)
+  if (dir == 'd') any(apply(sign(b), 2, diff) == -1)
+  else if (dir == 'u') any(apply(sign(b), 2, diff) == 1) 
+  else if (dir == 'l') any(apply(sign(b), 1, diff) == 1)
+  else any(apply(sign(b), 1, diff) == -1)
 }
+
 
 
 two_in_order <- function(x) {
@@ -45,10 +50,10 @@ two_in_order <- function(x) {
 
 
 condense <- function(b, dir) {
-  dir == 'd' & any(apply(b, 2, two_in_order)) |
-    dir == 'u' & any(apply(b, 2, two_in_order)) |   
-    dir == 'l' & any(apply(b, 1, two_in_order)) |
-    dir == 'r' & any(apply(b, 1, two_in_order))
+  if (dir == 'd') any(apply(b, 2, two_in_order))
+  else if (dir == 'u') any(apply(b, 2, two_in_order))   
+  else if (dir == 'l') any(apply(b, 1, two_in_order))
+  else any(apply(b, 1, two_in_order))
 }
 
 # If there are no valid moves it is game over.
@@ -115,7 +120,7 @@ agg <- function(b, dir) {
 
 
 play <- function(b) {
-  print_board(board)
+  print_board(b)
   while(!game_over(b)) {
     n <- scan(nmax = 1, quiet = T, what = character())
     b <- agg(b, n)
@@ -127,8 +132,43 @@ play <- function(b) {
 
 
 
+auto_play <- function(b) {
+  #print_board(b)
+  while(!game_over(b)) {
+    n <- sample(c('l', 'r', 'u', 'd'), 1)
+    b <- agg(b, n)
+   # print_board(b)
+  }
+  #print('Game Over')
+  max(b)
+}
 
 play(board)
+
+
+
+x <- c()
+for (i in seq(100)) {
+  print(i)
+  x <- c(x, auto_play(gen_board()))
+}
+
+
+#auto_play(board)
+
+library(profr)
+
+Rprof("2048.out")
+x <- c()
+for (i in seq(100)) {
+  print(i)
+  x <- c(x, auto_play(gen_board()))
+}
+Rprof(NULL)
+summaryRprof('2048.out')
+
+
+
 
 
 
