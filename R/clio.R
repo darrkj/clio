@@ -33,6 +33,9 @@ read.hist <- function() {
   history$value <- ifelse(first(history$value) == ' ', 
                           substr(history$value, 2, nchar(history$value)), 
                           history$value)
+  
+  history$name <- unlist(history$name)
+  history$value <- unlist(history$value)
   history
 }
 
@@ -108,33 +111,38 @@ origin <- function(var, all = F) {
 }
 
 
-origin('data2')
-origin('data2', T)
-origin('data')
-origin('data', T)
+origin('myData2')
+origin('myData2', T)
+origin('myData')
+origin('myData', T)
 
 all.names(parse(text = origin('data2')))
 all.vars(parse(text = origin('data2')))
 
 
 condense <- function(str) {
-  xx <- origin(str)
-  x <- gregexpr('$', xx, fixed = T)
-  if (length(xx) > 0) {
-    d <- strsplit(xx, NULL)[[1]]
-    y <- d %in% letters | d %in% toupper(letters) | d %in% as.character(0:9)
-    y <- y | z
+  # Just take the first and call recursively.
+  elem <- gregexpr('$', str, fixed = T)[[1]][1]
+  if (elem > 0) {
+    chars <- strsplit(str, NULL)[[1]]
+    ind <- chars %in% c(letters, LETTERS, as.character(0:9))
     # The plus one is to offset the dollar sign
-    y[1:as.integer(x)] <- T
-    dd <- paste(d[c(1:(as.integer(x)-1), min(which(!y)):nchar(xx))], collapse = '')
-    
-    v <- all.names(parse(text = dd))
+    ind[1:elem] <- TRUE
+    str <- paste(chars[c(1:(elem-1), min(which(!ind)):nchar(str))], collapse = '')
   }
-  syms <- c('<-', '>', '<', '-', '+', '/', '*', '[', '[[', str)
-  setdiff(v, syms)
+  str
 }
 
-xx <- condense('data2')
+
+depends <- function(str) {
+  x <- all.names(parse(text = condense(origin(str))), unique = TRUE)
+  x <- setdiff(x, str)
+  x <- x[!unlist(lapply(x, exists))]
+  if (length(x) > 0) c(x, depends(x)) else x
+}
+
+depends(condense(origin('myData2')))
+
 
 
 syms <- c('<-', '>', '<', '-', '+', '/', '*', '[', '[[')
