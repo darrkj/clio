@@ -7,9 +7,7 @@ gen_board <- function() {
   matrix(start, 4, 4)
 }
 
-
-rows <- function(fun) apply(b, 1, fun)
-cols <- function(fun) apply(b, 2, fun)
+board <- gen_board()
 
 print_board <- function(b) {
   for(i in seq(4)) {
@@ -114,6 +112,7 @@ move <- function(b, dir) {
   else t(apply(b, 1, down))
 }
 
+cmove <- cmpfun(move)
 
 agg <- function(b, dir) {
   if(valid_move(b, dir) | condense(b, dir)) {
@@ -155,14 +154,29 @@ auto_play <- function(b) {
   max(b)
 }
 
+
+
+auto_play2 <- function(b) {
+  #print_board(b)
+  while(not_game_over(b)) {
+    n <- sample(c('l', 'r', 'u', 'd'), 1, prob = c(.4, .1, .1, .4))
+    b <- agg(b, n)
+    # print_board(b)
+  }
+  #print('Game Over')
+  max(b)
+}
+
+
 play(board)
 
 
 
 x <- c()
-for (i in seq(100)) {
-  print(i)
-  x <- c(x, auto_play(gen_board()))
+for (i in seq(300)) {
+  #if (i %% 100 == 0) 
+    print(i)
+  x <- c(x, auto_play2(gen_board()))
 }
 
 
@@ -172,10 +186,12 @@ library(profr)
 
 Rprof("2048.out")
 x <- c()
-t <- c()
-for (i in seq(150)) {
+#t <- c()
+for (i in seq(250)) {
   print(i)
-  t <- c(t, system.time(x <- c(x, auto_play(gen_board())))[3])
+  #t <- c(t, system.time(
+  x <- c(x, auto_play(gen_board()))
+#[3])
 }
 Rprof(NULL)
 summaryRprof('2048.out')
